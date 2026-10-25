@@ -161,7 +161,7 @@
 
 .admin-main {
   min-width: 0;
-  padding: clamp(24px, 4vw, 56px);
+  padding: 24px;
 }
 
 .admin-footer {

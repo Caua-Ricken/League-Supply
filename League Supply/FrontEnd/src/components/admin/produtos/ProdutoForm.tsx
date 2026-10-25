@@ -1,35 +1,37 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import times from '../../../data/times.json';
-import type { Produto, ProdutoInput } from '../../../types/Produto';
+import type {Produto, ProdutoInput,} from '../../../types/Produto';
+import {cadastrarProduto, editarProduto as editarProdutoAPI,} from '../../../services/admin/ProdutoService';
 import './ProdutoForm.css';
 
 interface Props {
   produto: Produto | null;
-  onSalvar: (dados: ProdutoInput) => Promise<void>;
-  onCancelar: () => void;
-  salvando: boolean;
+  onFechar: () => void;
+  onAtualizar: () => Promise<void>;
 }
 
-const ProdutoForm = ({ produto, onSalvar, onCancelar, salvando }: Props) => {
+const ProdutoForm = ({produto, onFechar, onAtualizar}: Props) => {
+
   const [nome, setNome] = useState(produto?.nome ?? '');
   const [liga, setLiga] = useState(produto?.liga ?? '');
   const [timeId, setTimeId] = useState(produto?.timeId ?? '');
   const [categoria, setCategoria] = useState(produto?.categoria ?? '');
   const [imagemUrl, setImagemUrl] = useState(produto?.imagemUrl ?? '');
-
-  const [preco, setPreco] = useState(
-    produto ? String(produto.precoCentavos / 100) : ''
-  );
+  const [preco, setPreco] = useState(produto ? String(produto.precoCentavos / 100) : '');
 
   const [variantes, setVariantes] = useState(
     ['P', 'M', 'G', 'GG'].map(tamanho => ({
       tamanho,
       estoque:
-        produto?.variantes.find(item => item.tamanho === tamanho)
-          ?.estoque ?? 0,
+        produto?.variantes.find(
+          item => item.tamanho === tamanho
+        )?.estoque ?? 0,
     }))
   );
+
+  const [salvando, setSalvando] = useState(false);
+  const [mensagem, setMensagem] = useState('');
 
   const timesDaLiga = times.filter(time => time.liga === liga);
   const timeSelecionado = times.find(time => time.id === timeId);
@@ -37,20 +39,26 @@ const ProdutoForm = ({ produto, onSalvar, onCancelar, salvando }: Props) => {
   function alterarEstoque(tamanho: string, estoque: number) {
     setVariantes(anteriores =>
       anteriores.map(item =>
-        item.tamanho === tamanho ? { ...item, estoque } : item
+        item.tamanho === tamanho
+          ? { ...item, estoque }
+          : item
       )
     );
   }
 
-  function salvar(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (salvando) return;
+  async function salvar(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-    if (liga !== 'NBA' && liga !== 'NFL' && liga !== 'MLB' && liga !== 'NHL') {
-      return
+    if (salvando) return;
+    setMensagem('');
+
+    if (liga !== 'NBA' && liga !== 'NFL' && liga !== 'MLB' && liga !== 'NHL'
+    ) {
+      setMensagem('Selecione uma liga válida.');
+      return;
     }
 
-    onSalvar({
+    const dados: ProdutoInput = {
       nome: nome.trim(),
       liga,
       timeId,
@@ -59,12 +67,44 @@ const ProdutoForm = ({ produto, onSalvar, onCancelar, salvando }: Props) => {
       imagemUrl: imagemUrl.trim(),
       variantes,
       ativo: produto?.ativo ?? true,
-    });
+    };
+
+    setSalvando(true);
+
+    try {
+      if (produto) {
+        await editarProdutoAPI(produto._id, dados);
+      } else {
+        await cadastrarProduto(dados);
+      }
+    } catch (error) {
+      setMensagem(
+        error instanceof Error
+          ? error.message
+          : 'Erro ao salvar produto.'
+      );
+
+      setSalvando(false);
+      return;
+    }
+
+    try {
+      await onAtualizar();
+    } finally {
+      setSalvando(false);
+      onFechar();
+    }
   }
 
   return (
     <form className="produto-form" onSubmit={salvar}>
-      <h2>{produto ? 'Editar produto' : 'Novo produto'}</h2>
+      <h2>
+        {produto ? 'Editar produto' : 'Novo produto'}
+      </h2>
+
+      {mensagem && (
+        <p role="alert">{mensagem}</p>
+      )}
 
       <label>
         Nome do produto
@@ -74,6 +114,7 @@ const ProdutoForm = ({ produto, onSalvar, onCancelar, salvando }: Props) => {
           placeholder="Ex.: Regata Chicago Bulls"
           required
           pattern=".*\S.*"
+          disabled={salvando}
         />
       </label>
 
@@ -87,6 +128,7 @@ const ProdutoForm = ({ produto, onSalvar, onCancelar, salvando }: Props) => {
               setTimeId('');
             }}
             required
+            disabled={salvando}
           >
             <option value="">Selecione</option>
             <option value="NBA">NBA</option>
@@ -101,7 +143,7 @@ const ProdutoForm = ({ produto, onSalvar, onCancelar, salvando }: Props) => {
           <select
             value={timeId}
             onChange={e => setTimeId(e.target.value)}
-            disabled={!liga}
+            disabled={!liga || salvando}
             required
           >
             <option value="">Selecione</option>
@@ -135,6 +177,7 @@ const ProdutoForm = ({ produto, onSalvar, onCancelar, salvando }: Props) => {
           value={categoria}
           onChange={e => setCategoria(e.target.value)}
           required
+          disabled={salvando}
         >
           <option value="">Selecione</option>
           <option value="Regatas">Regatas</option>
@@ -155,10 +198,14 @@ const ProdutoForm = ({ produto, onSalvar, onCancelar, salvando }: Props) => {
           onChange={e => setPreco(e.target.value)}
           placeholder="349,90"
           required
+          disabled={salvando}
         />
       </label>
 
-      <fieldset className="estoque-fieldset">
+      <fieldset
+        className="estoque-fieldset"
+        disabled={salvando}
+      >
         <legend>Estoque por tamanho</legend>
 
         <div className="tamanhos-grid">
@@ -192,19 +239,23 @@ const ProdutoForm = ({ produto, onSalvar, onCancelar, salvando }: Props) => {
           onChange={e => setImagemUrl(e.target.value)}
           placeholder="https://site.com/produto.webp"
           required
+          disabled={salvando}
         />
       </label>
 
       {imagemUrl && (
         <div className="foto-preview">
-          <img src={imagemUrl} alt="Prévia do produto" />
+          <img
+            src={imagemUrl}
+            alt="Prévia do produto"
+          />
         </div>
       )}
 
       <div className="form-acoes">
         <button
           type="button"
-          onClick={onCancelar}
+          onClick={onFechar}
           disabled={salvando}
         >
           Cancelar
