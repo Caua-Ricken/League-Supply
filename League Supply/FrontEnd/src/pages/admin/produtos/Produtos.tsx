@@ -114,7 +114,7 @@ const Produtos = () => {
       );
     }
   }
-console.log(produtos)
+
   return (
     <section className="produtos-page">
       <header className="produtos-cabecalho">
