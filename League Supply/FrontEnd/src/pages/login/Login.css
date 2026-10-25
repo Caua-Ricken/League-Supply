@@ -1,0 +1,323 @@
+.login-page {
+    min-height: 100svh;
+    display: grid;
+    grid-template-columns: 1.025fr 1fr;
+}
+
+.brand-panel {
+    position: relative;
+    overflow: hidden;
+    background: #142338;
+    color: white;
+    padding: 44px clamp(28px, 5.4vw, 90px) 38px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+}
+
+.brand-panel::after {
+    content: '★';
+    position: absolute;
+    font-size: 550px;
+    line-height: 1;
+    bottom: -170px;
+    right: -130px;
+    color: #ffffff02;
+    pointer-events: none;
+}
+
+.brand-logo {
+    font-family: 'Barlow Condensed', Impact, sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+.brand-logo span {
+    color: #c61f3a;
+}
+
+.brand-logo small {
+    display: block;
+    font-family: 'Barlow', Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    margin-top: 10px;
+    font-weight: 800;
+}
+
+.brand-content {
+    margin: auto 0;
+    padding: 76px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.brand-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 11px;
+    letter-spacing: 1.8px;
+    font-weight: 800;
+    margin: 0 0 30px;
+}
+
+.brand-eyebrow::before {
+    content: '';
+    width: 25px;
+    height: 2px;
+    background: #c81f3b;
+    flex-shrink: 0;
+}
+
+.brand-content h1 {
+    font-family: 'Barlow Condensed', Impact, sans-serif;
+    font-size: clamp(52px, 6.9vw, 96px);
+    line-height: .98;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    margin: 0 0 22px;
+}
+
+.brand-content h1 span {
+    color: #f19a8a;
+}
+
+.brand-description {
+    font-size: 14px;
+    line-height: 1.85;
+    color: #b8c9e1;
+    margin: 0;
+}
+
+.league-list {
+    display: flex;
+    gap: 22px;
+    list-style: none;
+    padding: 0;
+    margin: 44px 0 0;
+}
+
+.league-list li {
+    width: 60px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #ffffff16;
+    background: #ffffff04;
+    border-radius: 3px;
+}
+
+.league-list li img {
+    display: block;
+    width: 36px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.brand-footer {
+    font-size: 9px;
+    letter-spacing: 2.4px;
+    color: #93aac8;
+    margin: 0;
+}
+
+.form-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 40px;
+}
+
+.login-content {
+    width: 100%;
+    max-width: 355px;
+}
+
+.form-eyebrow {
+    color: #c31e38;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0 0 17px;
+}
+
+.login-content h2 {
+    font-family: 'Barlow Condensed', Impact, sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 16px;
+}
+
+.form-description {
+    color: #8190a5;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 24px;
+}
+
+.login-content label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0 0 9px;
+}
+
+.login-content input {
+    width: 100%;
+    height: 46px;
+    border: 1px solid #d9dfe8;
+    border-radius: 2px;
+    padding: 0 14px;
+    color: #142338;
+    background: white;
+    font-size: 13px;
+    outline: none;
+}
+
+.login-content input::placeholder {
+    color: #7c899c;
+}
+
+.login-content input:focus {
+    border-color: #426a98;
+    box-shadow: 0 0 0 3px #426a9818;
+}
+
+.login-content form>input {
+    margin-bottom: 22px;
+}
+
+.password-field {
+    position: relative;
+}
+
+.password-field input {
+    padding-right: 76px;
+}
+
+.password-field button {
+    position: absolute;
+    top: 0;
+    right: 12px;
+    height: 100%;
+    border: 0;
+    background: transparent;
+    color: #7c899c;
+    font-size: 11px;
+}
+
+.login-submit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 46px;
+    margin-top: 39px;
+    border: 0;
+    border-radius: 2px;
+    padding: 0 19px;
+    background: #c31e38;
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.login-submit:hover {
+    background: #a71930;
+}
+
+.login-submit:disabled {
+    opacity: .65;
+    cursor: wait;
+}
+
+.login-submit span {
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.signup-message {
+    text-align: center;
+    font-size: 12px;
+    color: #8190a5;
+    margin: 27px 0 39px;
+}
+
+.signup-message span {
+    color: #c31e38;
+    font-weight: 600;
+}
+
+.signup-message a {
+    color: #c31e38;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.signup-message a:hover {
+    text-decoration: underline;
+}
+
+.login-note {
+    border-top: 1px solid #e9ecf0;
+    padding-top: 19px;
+    color: #8996a9;
+    font-size: 11px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.form-message {
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 14px 0 -18px;
+}
+
+@media (max-width: 760px) {
+    .login-page {
+        grid-template-columns: 1fr;
+    }
+
+    .brand-panel {
+        min-height: auto;
+        padding: 30px 28px;
+    }
+
+    .brand-content {
+        padding: 48px 0 30px;
+    }
+
+    .brand-content h1 {
+        font-size: clamp(52px, 11vw, 76px);
+    }
+
+    .brand-eyebrow {
+        margin-bottom: 22px;
+        font-size: 10px;
+    }
+
+    .league-list {
+        margin-top: 28px;
+        gap: 16px;
+    }
+
+    .brand-footer {
+        margin-top: 10px;
+    }
+
+    .form-panel {
+        padding: 48px 28px;
+    }
+
+    .login-content {
+        max-width: 440px;
+    }
+
+    .brand-description br {
+        display: none;
+    }
+}

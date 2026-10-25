@@ -1,0 +1,8 @@
+.register-fields { border: 0; padding: 0; margin: 0; min-width: 0; }
+.register-fields > input, .register-password { margin-bottom: 20px; }
+.register-fields > input:last-child { margin-bottom: 0; }
+.register-page .login-submit { margin-top: 28px; }
+.register-page .signup-message { margin-bottom: 0; }
+.register-error { color: #b31b34; }
+.register-success p { color: #42634e; font-size: 14px; line-height: 1.7; }
+.register-login-link { text-decoration: none; }

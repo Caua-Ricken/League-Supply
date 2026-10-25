@@ -1,0 +1,127 @@
+.produto-card {
+    display: flex;
+    gap: 18px;
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid #dce3ec;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgb(20 40 63 / 3%);
+  }
+  
+  .produto-card .produto-foto {
+    width: 42%;
+    height: 240px;
+    min-width: 0;
+    padding: 12px;
+    border-radius: 7px;
+    background: #f2f4f7;
+    object-fit: contain;
+  }
+  
+  .produto-card .produto-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
+  }
+  
+  .produto-card .produto-identidade {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+  
+  .produto-card .time-logo {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+  }
+  
+  .produto-card .liga-badge {
+    padding: 6px 10px;
+    border-radius: 5px;
+    background: #eef2f7;
+    color: #243d5c;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  
+  .produto-card .produto-info > span {
+    color: #68788d;
+    font-size: 13px;
+  }
+  
+  .produto-card h2 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+  
+  .produto-card .produto-preco {
+    margin-top: 4px;
+    font-size: 24px;
+    font-weight: 800;
+  }
+  
+  .produto-card .produto-estoque {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0;
+    color: #367448;
+    font-size: 13px;
+  }
+  
+  .produto-card .produto-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 16px;
+  }
+  
+  .produto-card .produto-acoes button {
+    padding: 8px 12px;
+    border: 1px solid #dce3ec;
+    border-radius: 6px;
+    background: #fff;
+    color: #243d5c;
+    font-size: 13px;
+  }
+  
+  .produto-card .produto-acoes button:hover {
+    background: #f1f4f8;
+  }
+  
+  .produto-card .produto-acoes .botao-excluir {
+    border-color: #f1cbd3;
+    color: #cf1237;
+  }
+  
+  .produto-card .produto-acoes .botao-excluir:hover {
+    background: #fff0f3;
+  }
+  
+  @media (max-width: 600px) {
+    .produto-card {
+      flex-direction: column;
+    }
+  
+    .produto-card .produto-foto {
+      width: 100%;
+      height: 220px;
+    }
+  
+    .produto-card .produto-acoes {
+      width: 100%;
+    }
+  
+    .produto-card .produto-acoes button {
+      flex: 1;
+    }
+  }
