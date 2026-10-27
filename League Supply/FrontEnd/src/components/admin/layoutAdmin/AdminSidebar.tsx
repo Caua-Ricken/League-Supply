@@ -4,8 +4,14 @@ const itens = [
   { to: '.', label: 'Visão geral', icon: '◫', end: true },
   { to: 'produtos', label: 'Produtos', icon: '◇' },
   { to: '/admin/pedidos', label: 'Pedidos', icon: '▤' },
-  { to: '/admin/clientes', label: 'Clientes', icon: '◎' },
-  { to: '/admin/categorias', label: 'Categorias', icon: '▦' },
+  { to: 'formas-pagamento', label: 'Pagamentos', icon: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" focusable="false">
+      <rect x="2.5" y="5" width="19" height="14" rx="2" />
+      <path d="M2.5 9h19M6 15h4" />
+    </svg>
+  ) },
+  { to: 'usuarios', label: 'Usuarios', icon: '◎' },
+  { to: 'categorias', label: 'Categorias', icon: '▦' },
 ]
 
 const AdminSidebar = () => {

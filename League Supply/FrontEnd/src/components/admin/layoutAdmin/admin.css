@@ -235,3 +235,36 @@
     line-height: 1.5;
   }
 }
+
+.admin-account-menu {
+  position: relative;
+}
+
+.admin-account-menu .admin-avatar {
+  padding: 0;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+.admin-logout {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 100;
+
+  width: 150px;
+  padding: 12px;
+
+  border: 1px solid #dce3ec;
+  border-radius: 6px;
+  background: white;
+  color: #c61f3a;
+
+  font: inherit;
+  cursor: pointer;
+}
+
+.admin-logout:hover {
+  background: #fff0f3;
+}

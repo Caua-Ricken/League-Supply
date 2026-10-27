@@ -7,11 +7,15 @@ import './Produtos.css';
 
 const Produtos = () => {
   const [produtos, setProdutos] = useState<Produto[]>([]);
-  const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
+  const [produtoSelecionado, setProdutoSelecionado] =
+    useState<Produto | null>(null);
 
   const [open, setOpen] = useState(false);
   const [carregando, setCarregando] = useState(true);
   const [mensagem, setMensagem] = useState('');
+
+  const [busca, setBusca] = useState('');
+  const [liga, setLiga] = useState('');
 
   async function carregarProdutos() {
     setCarregando(true);
@@ -50,6 +54,16 @@ const Produtos = () => {
     setProdutoSelecionado(null);
   }
 
+  const produtosFiltrados = produtos.filter(produto => {
+    const correspondeNome = produto.nome
+      .toLowerCase()
+      .includes(busca.trim().toLowerCase());
+
+    const correspondeLiga = liga === '' || produto.liga === liga;
+
+    return correspondeNome && correspondeLiga;
+  });
+
   return (
     <section className="produtos-page">
       <header className="produtos-cabecalho">
@@ -81,12 +95,34 @@ const Produtos = () => {
         />
       ) : (
         <>
+          <div className="produtos-filtros">
+            <input
+              type="search"
+              aria-label="Buscar produto pelo nome"
+              placeholder="Buscar produto..."
+              value={busca}
+              onChange={e => setBusca(e.target.value)}
+            />
+
+            <select
+              aria-label="Filtrar por liga"
+              value={liga}
+              onChange={e => setLiga(e.target.value)}
+            >
+              <option value="">Todas as ligas</option>
+              <option value="NBA">NBA</option>
+              <option value="NFL">NFL</option>
+              <option value="MLB">MLB</option>
+              <option value="NHL">NHL</option>
+            </select>
+          </div>
+
           {carregando && (
             <p role="status">Carregando produtos...</p>
           )}
 
           <div className="produtos-grid">
-            {produtos.map(produto => (
+            {produtosFiltrados.map(produto => (
               <ProdutoCard
                 key={produto._id}
                 produto={produto}
@@ -96,11 +132,15 @@ const Produtos = () => {
             ))}
           </div>
 
-          {!carregando && !mensagem && produtos.length === 0 && (
-            <p className="produtos-vazio">
-              Nenhum produto cadastrado.
-            </p>
-          )}
+          {!carregando &&
+            !mensagem &&
+            produtosFiltrados.length === 0 && (
+              <p className="produtos-vazio">
+                {produtos.length === 0
+                  ? 'Nenhum produto cadastrado.'
+                  : 'Nenhum produto encontrado com esses filtros.'}
+              </p>
+            )}
         </>
       )}
     </section>

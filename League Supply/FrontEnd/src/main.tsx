@@ -13,6 +13,10 @@ import CadastrarUsuario from './pages/cadastroUsuario/CadastrarUsuario.tsx'
 import MainLayoutAdmin from './layout/MainLayoutAdmin.tsx';
 import Dashboard from './pages/admin/dashboard/Dashboard.tsx';
 import Produtos from './pages/admin/produtos/Produtos.tsx';
+import Admin from './routes/admin/Admin.tsx'
+import Categorias from './pages/admin/categoria/Categoria.tsx';
+import Usuarios from './pages/admin/usuario/Usuarios.tsx';
+import FormasPagamento from './pages/admin/formaPagamento/FormasPagamento.tsx';
 
 const router = createBrowserRouter([
   {
@@ -24,19 +28,37 @@ const router = createBrowserRouter([
     element: <CadastrarUsuario />
   },
   {
-    path: '/administrador',
-    element: <MainLayoutAdmin />,
+    element: <Admin />,
     children: [
       {
-        index: true,
-        element: <Dashboard />
-      },
-      {
-        path: 'produtos',
-        element: <Produtos />
+        path: '/administrador',
+        element: <MainLayoutAdmin />,
+        children: [
+          {
+            index: true,
+            element: <Dashboard />
+          },
+          {
+            path: 'produtos',
+            element: <Produtos />
+          },
+          {
+            path: 'categorias',
+            element: <Categorias />
+          },
+          {
+            path: 'usuarios',
+            element: <Usuarios />
+          },
+          {
+            path: 'formas-pagamento',
+            element: <FormasPagamento />
+          }
+        ]
       }
     ]
-  }
+  },
+ 
 
 ])
 

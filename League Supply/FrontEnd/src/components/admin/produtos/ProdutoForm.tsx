@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import times from '../../../data/times.json';
-import type {Produto, ProdutoInput,} from '../../../types/Produto';
-import {cadastrarProduto, editarProduto as editarProdutoAPI,} from '../../../services/admin/ProdutoService';
+import type { Produto, ProdutoInput, } from '../../../types/Produto';
+import { cadastrarProduto, editarProduto as editarProdutoAPI, } from '../../../services/admin/ProdutoService';
 import './ProdutoForm.css';
+
+import { buscarCategorias } from '../../../services/admin/CategotiaService';
+import type { Categoria } from '../../../types/Categotia';
 
 interface Props {
   produto: Produto | null;
@@ -11,7 +14,7 @@ interface Props {
   onAtualizar: () => Promise<void>;
 }
 
-const ProdutoForm = ({produto, onFechar, onAtualizar}: Props) => {
+const ProdutoForm = ({ produto, onFechar, onAtualizar }: Props) => {
 
   const [nome, setNome] = useState(produto?.nome ?? '');
   const [liga, setLiga] = useState(produto?.liga ?? '');
@@ -45,6 +48,21 @@ const ProdutoForm = ({produto, onFechar, onAtualizar}: Props) => {
       )
     );
   }
+
+  const [categorias, setCategorias] = useState<Categoria[]>([]);
+
+  useEffect(() => {
+    async function carregarCategorias() {
+      try {
+        const dados = await buscarCategorias();
+        setCategorias(dados);
+      } catch {
+        setMensagem('Erro ao carregar categorias.');
+      }
+    }
+
+    carregarCategorias();
+  }, []);
 
   async function salvar(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -173,18 +191,20 @@ const ProdutoForm = ({produto, onFechar, onAtualizar}: Props) => {
 
       <label>
         Categoria
+
         <select
           value={categoria}
           onChange={e => setCategoria(e.target.value)}
           required
           disabled={salvando}
         >
-          <option value="">Selecione</option>
-          <option value="Regatas">Regatas</option>
-          <option value="Camisas">Camisas</option>
-          <option value="Bonés">Bonés</option>
-          <option value="Moletons">Moletons</option>
-          <option value="Acessórios">Acessórios</option>
+          <option value="">Selecione uma categoria</option>
+
+          {categorias.map(item => (
+            <option key={item._id} value={item.nome}>
+              {item.nome}
+            </option>
+          ))}
         </select>
       </label>
 

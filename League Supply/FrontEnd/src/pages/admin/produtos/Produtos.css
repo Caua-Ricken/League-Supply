@@ -179,3 +179,38 @@
     padding-top: 10px;
   }
 }
+
+.produtos-filtros {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.produtos-filtros input,
+.produtos-filtros select {
+  min-width: 0;
+  padding: 11px 14px;
+  border: 1px solid #d4deea;
+  border-radius: 6px;
+  background: #fff;
+  color: #14283f;
+  font: inherit;
+}
+
+.produtos-filtros input {
+  flex: 1;
+}
+
+.produtos-filtros select {
+  width: 180px;
+}
+
+@media (max-width: 600px) {
+  .produtos-filtros {
+    flex-direction: column;
+  }
+
+  .produtos-filtros select {
+    width: 100%;
+  }
+}
