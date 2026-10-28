@@ -144,8 +144,8 @@
 
 .produto-form .tamanhos-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .produto-form .tamanhos-grid label {
@@ -305,6 +305,12 @@
   .produto-form > .form-acoes {
     grid-column: auto;
     grid-row: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .produto-form .tamanhos-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

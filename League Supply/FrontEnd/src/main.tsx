@@ -17,6 +17,9 @@ import Admin from './routes/admin/Admin.tsx'
 import Categorias from './pages/admin/categoria/Categoria.tsx';
 import Usuarios from './pages/admin/usuario/Usuarios.tsx';
 import FormasPagamento from './pages/admin/formaPagamento/FormasPagamento.tsx';
+import MainLayoutUser from './layout/MainLayoutUser.tsx';
+import Loja from './pages/user/loja/Loja.tsx';
+import Carrinho from './pages/user/carrinho/Carrinho.tsx';
 
 const router = createBrowserRouter([
   {
@@ -58,6 +61,20 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: '/loja',
+    element: <MainLayoutUser />,
+    children: [
+        {
+          index: true,
+          element: <Loja />
+        },
+        {
+          path: 'carrinho',
+          element: <Carrinho />
+        }
+    ]
+  }
  
 
 ])
@@ -67,3 +84,4 @@ createRoot(document.getElementById('root')!).render(
     <RouterProvider router={router} />
   </StrictMode>,
 )
+

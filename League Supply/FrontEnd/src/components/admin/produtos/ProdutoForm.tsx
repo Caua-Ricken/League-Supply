@@ -24,7 +24,7 @@ const ProdutoForm = ({ produto, onFechar, onAtualizar }: Props) => {
   const [preco, setPreco] = useState(produto ? String(produto.precoCentavos / 100) : '');
 
   const [variantes, setVariantes] = useState(
-    ['P', 'M', 'G', 'GG'].map(tamanho => ({
+    ['Único','P', 'M', 'G', 'GG'].map(tamanho => ({
       tamanho,
       estoque:
         produto?.variantes.find(

@@ -89,3 +89,4 @@ import type {
       throw new Error(data.message || 'Erro ao excluir usuário.');
     }
   };
+

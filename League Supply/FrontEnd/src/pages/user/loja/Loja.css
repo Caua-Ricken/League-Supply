@@ -1,0 +1,630 @@
+/* Base */
+
+.loja-page,
+.loja-page * {
+  box-sizing: border-box;
+}
+
+.loja-page {
+  width: 100%;
+  min-width: 0;
+  color: #142338;
+}
+
+.loja-page button,
+.loja-page input,
+.loja-page select {
+  font: inherit;
+}
+
+.loja-page button {
+  cursor: pointer;
+}
+
+.loja-page button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.loja-page :is(button, input, select):focus-visible {
+  outline: 3px solid #adc3e0;
+  outline-offset: 3px;
+}
+
+/* Botão principal */
+
+.loja-page .loja-botao-principal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 11px 18px;
+  border: 1px solid #d80832;
+  border-radius: 6px;
+  background: #d80832;
+  color: #fff;
+
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.loja-page .loja-botao-principal:hover:not(:disabled) {
+  border-color: #b90629;
+  background: #b90629;
+}
+
+.loja-botao-principal svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+/* Banner */
+
+.loja-hero {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-height: 330px;
+  padding: 24px 4.5%;
+  overflow: hidden;
+
+  border-radius: 9px;
+  background-color: #071625;
+  background-image: url('/images/banner/arena-sports.png');
+  background-size: cover;
+  background-position: center 25%;
+  background-repeat: no-repeat;
+
+  color: #fff;
+}
+
+.loja-hero-texto {
+  width: 40%;
+  max-width: 490px;
+  min-width: 0;
+}
+
+.loja-hero-texto > span {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 3px;
+}
+
+.loja-hero h1 {
+  margin: 10px 0;
+
+  font-family: 'Barlow Condensed', Impact, sans-serif;
+  font-size: clamp(44px, 4.2vw, 66px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.5px;
+}
+
+.loja-hero p {
+  max-width: 390px;
+  margin: 0 0 18px;
+  color: #e4e8ee;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.loja-hero .loja-botao-principal {
+  padding: 11px 22px;
+}
+
+/* Filtros por liga */
+
+.loja-ligas {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0 24px;
+}
+
+.loja-ligas button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  min-width: 0;
+  min-height: 64px;
+  padding: 10px 12px;
+
+  border: 1px solid #dce3ec;
+  border-radius: 7px;
+  background: #fff;
+  color: #142338;
+
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.loja-ligas button:hover {
+  border-color: #b7c5d6;
+  background: #f8fafc;
+}
+
+.loja-ligas button.selecionado {
+  border-color: #d80832;
+  background: #fff5f7;
+  color: #d80832;
+}
+
+.loja-ligas img {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.loja-ligas svg {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.loja-ligas button > span {
+  min-width: 0;
+  text-align: left;
+}
+
+.loja-ligas strong {
+  display: block;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.loja-ligas small {
+  display: block;
+  margin-top: 3px;
+  color: #68788d;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+/* Cabeçalho do catálogo */
+
+.loja-catalogo {
+  scroll-margin-top: 20px;
+}
+
+.loja-catalogo-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.loja-catalogo-cabecalho > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  min-width: 0;
+}
+
+.loja-catalogo h2 {
+  margin: 0;
+  font-family: 'Barlow Condensed', Impact, sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.loja-catalogo-cabecalho span {
+  color: #68788d;
+  font-size: 13px;
+}
+
+.loja-catalogo-cabecalho label {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 10px;
+  color: #586d87;
+  font-size: 13px;
+}
+
+.loja-catalogo-cabecalho select {
+  min-width: 0;
+  padding: 9px 12px;
+  border: 1px solid #d4deea;
+  border-radius: 6px;
+  background: #fff;
+  color: #142338;
+}
+
+/* Grade e cards */
+
+.loja-produtos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 16px;
+}
+
+.loja-produto-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 6px;
+
+  border: 1px solid #e1e7ef;
+  border-radius: 9px;
+  background: #fff;
+
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.loja-produto-card:hover {
+  border-color: #c7d2df;
+  box-shadow: 0 5px 18px rgb(20 35 56 / 6%);
+}
+
+/* Foto do produto */
+
+.loja-produto-imagem {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #f0f2f5;
+}
+
+.loja-produto-imagem > img {
+  display: block;
+  width: 100%;
+  height: 240px;
+  padding: 12px;
+  object-fit: contain;
+}
+
+.loja-produto-esgotado {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  padding: 5px 8px;
+  border-radius: 4px;
+  background: #142338;
+  color: #fff;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Dados do produto */
+
+.loja-produto-conteudo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px 6px 6px;
+}
+
+.loja-produto-time {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  min-width: 0;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.loja-produto-time > span {
+  overflow-wrap: anywhere;
+}
+
+.loja-produto-time img {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.loja-produto-liga {
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: #eef2f7;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.loja-produto-card h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.loja-produto-preco {
+  font-family: 'Barlow Condensed', Impact, sans-serif;
+  font-size: 27px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.loja-produto-selecao {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 112px;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.loja-produto-selecao label,
+.loja-produto-quantidade {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  color: #586d87;
+  font-size: 12px;
+}
+
+.loja-produto-selecao select {
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 7px;
+  border: 1px solid #d4deea;
+  border-radius: 5px;
+  background: #fff;
+  color: #142338;
+}
+
+.loja-quantidade-controle {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 34px;
+  height: 38px;
+  overflow: hidden;
+  border: 1px solid #d4deea;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.loja-quantidade-controle button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: #f4f6f9;
+  color: #142338;
+}
+
+.loja-quantidade-controle button:last-child {
+  background: #d80832;
+  color: #fff;
+}
+
+.loja-quantidade-controle output {
+  display: grid;
+  place-items: center;
+  color: #142338;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.loja-produto-disponibilidade {
+  color: #68788d;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.loja-produto-disponibilidade {
+  color: #68788d;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+
+
+.loja-produto-card .loja-botao-principal {
+  width: 100%;
+  padding: 11px 8px;
+  font-size: 13px;
+}
+
+/* Avisos */
+
+.loja-aviso {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #fff;
+  color: #29415f;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.loja-aviso > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.loja-aviso button {
+  flex-shrink: 0;
+  padding: 0 5px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 24px;
+}
+
+.loja-estado {
+  margin: 16px 0;
+  padding: 32px 16px;
+  border-radius: 7px;
+  background: #fff;
+  color: #68788d;
+  text-align: center;
+}
+
+.loja-erro {
+  background: #fff0f3;
+  color: #a90d2b;
+}
+
+/* Tablets maiores */
+
+@media (max-width: 1100px) {
+  .loja-produtos-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .loja-ligas {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .loja-hero {
+    padding: 26px;
+  }
+
+  .loja-hero-texto {
+    width: 48%;
+  }
+
+  .loja-hero-texto > span {
+    letter-spacing: 2px;
+  }
+}
+
+/* Tablets */
+
+@media (max-width: 800px) {
+  .loja-produtos-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .loja-hero {
+    min-height: 320px;
+
+    background-image:
+      linear-gradient(
+        90deg,
+        rgb(7 22 37 / 92%),
+        rgb(7 22 37 / 45%) 65%,
+        rgb(7 22 37 / 15%)
+      ),
+      url('/images/banner/arena-sports.png');
+
+    background-position: center, 60% center;
+  }
+
+  .loja-hero-texto {
+    width: 75%;
+    max-width: 420px;
+  }
+
+  .loja-hero h1 {
+    font-size: 48px;
+  }
+
+  .loja-catalogo-cabecalho {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
+
+/* Celulares */
+
+@media (max-width: 500px) {
+  .loja-hero {
+    min-height: 320px;
+    padding: 24px 22px;
+    background-position: center, 65% center;
+  }
+
+  .loja-hero-texto {
+    width: 100%;
+  }
+
+  .loja-hero-texto > span {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .loja-hero h1 {
+    font-size: 44px;
+  }
+
+  .loja-hero p {
+    max-width: 260px;
+    font-size: 13px;
+  }
+
+  .loja-ligas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .loja-ligas button {
+    justify-content: flex-start;
+    gap: 10px;
+    min-height: 60px;
+    padding: 10px;
+  }
+
+  .loja-ligas img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .loja-ligas strong {
+    font-size: 14px;
+  }
+
+  .loja-ligas small {
+    font-size: 11px;
+  }
+
+  .loja-catalogo h2 {
+    font-size: 26px;
+  }
+
+  .loja-catalogo-cabecalho label {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .loja-produtos-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .loja-produto-imagem > img {
+    height: 270px;
+  }
+}
+
+@media (min-width: 801px) {
+    .loja-hero {
+      min-height: 345px;
+      padding: 24px 4.5%;
+  
+      background-image: url('/images/banner/arena-sports.png');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+  }
