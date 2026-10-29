@@ -25,6 +25,8 @@ interface CarrinhoContextType {
   ) => void;
 
   remover: (produtoId: string, tamanho: string) => void;
+
+  limpar: () => void;
 }
 
 const CarrinhoContext = createContext<CarrinhoContextType | undefined>(undefined);
@@ -166,6 +168,10 @@ export function CarrinhoProvider({children,}: {children: ReactNode;}) {
     salvar(novosItens);
   };
 
+  function limpar() {
+    salvar([]);
+  }
+
   const totalPecas = itens.reduce(
     (total, item) => total + item.quantidade,
     0
@@ -173,7 +179,7 @@ export function CarrinhoProvider({children,}: {children: ReactNode;}) {
 
   return (
     <CarrinhoContext.Provider
-      value={{ itens, totalPecas, adicionar, alterarQuantidade, remover,}}
+      value={{ itens, totalPecas, adicionar, alterarQuantidade, remover, limpar}}
     >
       {children}
     </CarrinhoContext.Provider>

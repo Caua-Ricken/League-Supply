@@ -20,6 +20,9 @@ import FormasPagamento from './pages/admin/formaPagamento/FormasPagamento.tsx';
 import MainLayoutUser from './layout/MainLayoutUser.tsx';
 import Loja from './pages/user/loja/Loja.tsx';
 import Carrinho from './pages/user/carrinho/Carrinho.tsx';
+import Pagamento from './pages/user/pagamento/Pagamento.tsx'
+import Finalizado from './pages/user/finalizado/Finalizado.tsx';
+import MeusPedidos from './pages/user/pedido/MeusPedidos.tsx';
 
 const router = createBrowserRouter([
   {
@@ -56,7 +59,7 @@ const router = createBrowserRouter([
           {
             path: 'formas-pagamento',
             element: <FormasPagamento />
-          }
+          },
         ]
       }
     ]
@@ -72,6 +75,18 @@ const router = createBrowserRouter([
         {
           path: 'carrinho',
           element: <Carrinho />
+        },
+        {
+          path: 'pagamento',
+          element: <Pagamento />
+        },
+        {
+          path: 'finalizado',
+          element: <Finalizado />
+        },
+        {
+          path: 'pedidos',
+          element: <MeusPedidos />
         }
     ]
   }

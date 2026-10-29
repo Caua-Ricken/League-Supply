@@ -16,4 +16,7 @@ router.use('/usuarios', usuarioRoutes);
 import formaPagamentoRoutes from './formaPagamentoRoutes.js';
 router.use('/formas-pagamento', formaPagamentoRoutes);
 
+import pedidoRoutes from './pedidoRoutes.js';
+router.use('/pedidos', pedidoRoutes);
+
 export default router;

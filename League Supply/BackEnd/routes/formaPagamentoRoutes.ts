@@ -5,11 +5,9 @@ import verificarAdmin from '../middleware/verificarAdmin.js';
 
 const router = Router();
 
-router.use(verificarToken, verificarAdmin);
-
-router.get('/', formaPagamentoController.buscar);
-router.post('/cadastrar', formaPagamentoController.cadastrar);
-router.put('/:id', formaPagamentoController.editar);
-router.delete('/:id', formaPagamentoController.excluir);
+router.get('/', verificarToken, formaPagamentoController.buscar);
+router.post('/cadastrar', verificarToken, verificarAdmin, formaPagamentoController.cadastrar);
+router.put('/:id', verificarToken, verificarAdmin, formaPagamentoController.editar);
+router.delete('/:id', verificarToken, verificarAdmin, formaPagamentoController.excluir);
 
 export default router;
