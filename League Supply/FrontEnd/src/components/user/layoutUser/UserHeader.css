@@ -4,7 +4,13 @@
 }
 
 .loja-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
   width: 100%;
+  flex-shrink: 0;
+
   background: #142338;
   color: #fff;
   border-bottom: 3px solid #d80832;

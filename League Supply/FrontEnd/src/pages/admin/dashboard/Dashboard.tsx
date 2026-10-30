@@ -26,6 +26,12 @@ function formatarPreco(centavos: number) {
   });
 }
 
+interface VendaPagamento {
+  nome: string;
+  quantidade: number;
+  totalCentavos: number;
+}
+
 const Dashboard = () => {
   const [aba, setAba] = useState('geral');
 
@@ -110,6 +116,31 @@ const Dashboard = () => {
     inicioEstoque + porPagina
   );
 
+
+  //pagamentos por tipo
+  const vendasPorPagamento: VendaPagamento[] = [];
+
+for (const pedido of pedidos) {
+  const existente = vendasPorPagamento.find(
+    pagamento => pagamento.nome === pedido.pagamento
+  );
+
+  if (existente) {
+    existente.quantidade += 1;
+    existente.totalCentavos += pedido.totalCentavos;
+  } else {
+    vendasPorPagamento.push({
+      nome: pedido.pagamento,
+      quantidade: 1,
+      totalCentavos: pedido.totalCentavos,
+    });
+  }
+}
+
+vendasPorPagamento.sort(
+  (a, b) => b.totalCentavos - a.totalCentavos
+);
+
   return (
     <section className="dashboard-page">
       <header className="dashboard-cabecalho">
@@ -138,6 +169,16 @@ const Dashboard = () => {
             <FiPackage aria-hidden="true" />
             Estoque baixo
           </button>
+
+          <button
+  type="button"
+  className={aba === 'pagamentos' ? 'selecionada' : ''}
+  aria-pressed={aba === 'pagamentos'}
+  onClick={() => setAba('pagamentos')}
+>
+  <FiCreditCard aria-hidden="true" />
+  Vendas por pagamento
+</button>
         </div>
       </header>
 
@@ -391,6 +432,50 @@ const Dashboard = () => {
               )}
             </section>
           )}
+
+{aba === 'pagamentos' && (
+  <section className="dashboard-painel">
+    <header className="dashboard-painel-cabecalho">
+      <div>
+        <h2>Vendas por forma de pagamento</h2>
+        <p>Valores dos pedidos registrados em cada forma.</p>
+      </div>
+    </header>
+
+    {vendasPorPagamento.length === 0 ? (
+      <p className="dashboard-vazio">
+        Nenhum pedido registrado.
+      </p>
+    ) : (
+      <div className="dashboard-tabela-container">
+        <table className="dashboard-tabela">
+          <thead>
+            <tr>
+              <th scope="col">Forma de pagamento</th>
+              <th scope="col">Pedidos</th>
+              <th scope="col">Total em pedidos</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {vendasPorPagamento.map(pagamento => (
+              <tr key={pagamento.nome}>
+                <td>{pagamento.nome}</td>
+                <td>{pagamento.quantidade}</td>
+
+                <td className="dashboard-valor">
+                  <strong>
+                    {formatarPreco(pagamento.totalCentavos)}
+                  </strong>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )}
+  </section>
+)}
         </>
       )}
 
