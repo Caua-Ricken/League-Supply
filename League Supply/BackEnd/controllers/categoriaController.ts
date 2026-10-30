@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import models from '../models/index.js';
 
-const { Categorias } = models;
+const { Categorias, Produtos } = models;
 
 export default {
   async buscar(_req: Request, res: Response) {
@@ -126,13 +126,23 @@ export default {
     }
 
     try {
-      const categoria = await Categorias.findByIdAndDelete(id);
+      const categoria = await Categorias.findById(id);
 
       if (!categoria) {
         return res.status(404).json({
           message: 'Categoria não encontrada.',
         });
       }
+
+      const produtoVinculado = await Produtos.exists({ categoria: categoria.nome });
+
+      if (produtoVinculado) {
+        return res.status(409).json({
+          message: 'Não é possível excluir esta categoria porque existem produtos vinculados. Altere a categoria desses produtos ou exclua-os antes de tentar novamente.',
+        });
+      }
+
+      await categoria.deleteOne();
 
       return res.status(204).send();
     } catch (error) {

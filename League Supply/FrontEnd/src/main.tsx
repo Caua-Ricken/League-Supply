@@ -23,6 +23,7 @@ import Carrinho from './pages/user/carrinho/Carrinho.tsx';
 import Pagamento from './pages/user/pagamento/Pagamento.tsx'
 import Finalizado from './pages/user/finalizado/Finalizado.tsx';
 import MeusPedidos from './pages/user/pedido/MeusPedidos.tsx';
+import Pedidos from './pages/admin/pedido/Pedidos.tsx';
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
             path: 'formas-pagamento',
             element: <FormasPagamento />
           },
+          {
+            path: 'pedidos',
+            element: <Pedidos />
+          }
         ]
       }
     ]

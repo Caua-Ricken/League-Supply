@@ -1,12 +1,19 @@
 import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
+
 import times from '../../../data/times.json';
-import type { Produto, ProdutoInput, } from '../../../types/Produto';
-import { cadastrarProduto, editarProduto as editarProdutoAPI, } from '../../../services/admin/ProdutoService';
-import './ProdutoForm.css';
+
+import type { Produto, ProdutoInput } from '../../../types/Produto';
+import type { Categoria } from '../../../types/Categotia';
+
+import {
+  cadastrarProduto,
+  editarProduto as editarProdutoAPI,
+} from '../../../services/admin/ProdutoService';
 
 import { buscarCategorias } from '../../../services/admin/CategotiaService';
-import type { Categoria } from '../../../types/Categotia';
+
+import './ProdutoForm.css';
 
 interface Props {
   produto: Produto | null;
@@ -15,16 +22,18 @@ interface Props {
 }
 
 const ProdutoForm = ({ produto, onFechar, onAtualizar }: Props) => {
-
   const [nome, setNome] = useState(produto?.nome ?? '');
   const [liga, setLiga] = useState(produto?.liga ?? '');
   const [timeId, setTimeId] = useState(produto?.timeId ?? '');
   const [categoria, setCategoria] = useState(produto?.categoria ?? '');
   const [imagemUrl, setImagemUrl] = useState(produto?.imagemUrl ?? '');
-  const [preco, setPreco] = useState(produto ? String(produto.precoCentavos / 100) : '');
+
+  const [preco, setPreco] = useState(
+    produto ? String(produto.precoCentavos / 100) : ''
+  );
 
   const [variantes, setVariantes] = useState(
-    ['Único','P', 'M', 'G', 'GG'].map(tamanho => ({
+    ['Único', 'P', 'M', 'G', 'GG'].map(tamanho => ({
       tamanho,
       estoque:
         produto?.variantes.find(
@@ -33,23 +42,26 @@ const ProdutoForm = ({ produto, onFechar, onAtualizar }: Props) => {
     }))
   );
 
+  const [tamanhoUnico, setTamanhoUnico] = useState(
+    produto?.variantes.length === 1 &&
+    produto.variantes[0]?.tamanho === 'Único'
+  );
+
+  const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [salvando, setSalvando] = useState(false);
   const [mensagem, setMensagem] = useState('');
 
   const timesDaLiga = times.filter(time => time.liga === liga);
-  const timeSelecionado = times.find(time => time.id === timeId);
 
-  function alterarEstoque(tamanho: string, estoque: number) {
-    setVariantes(anteriores =>
-      anteriores.map(item =>
-        item.tamanho === tamanho
-          ? { ...item, estoque }
-          : item
-      )
-    );
-  }
+  const timeSelecionado = times.find(
+    time => time.id === timeId
+  );
 
-  const [categorias, setCategorias] = useState<Categoria[]>([]);
+  const variantesSelecionadas = variantes.filter(item =>
+    tamanhoUnico
+      ? item.tamanho === 'Único'
+      : item.tamanho !== 'Único'
+  );
 
   useEffect(() => {
     async function carregarCategorias() {
@@ -64,13 +76,28 @@ const ProdutoForm = ({ produto, onFechar, onAtualizar }: Props) => {
     carregarCategorias();
   }, []);
 
-  async function salvar(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function alterarEstoque(tamanho: string, estoque: number) {
+    setVariantes(anteriores =>
+      anteriores.map(item =>
+        item.tamanho === tamanho
+          ? { ...item, estoque }
+          : item
+      )
+    );
+  }
+
+  async function salvar(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
     if (salvando) return;
+
     setMensagem('');
 
-    if (liga !== 'NBA' && liga !== 'NFL' && liga !== 'MLB' && liga !== 'NHL'
+    if (
+      liga !== 'NBA' &&
+      liga !== 'NFL' &&
+      liga !== 'MLB' &&
+      liga !== 'NHL'
     ) {
       setMensagem('Selecione uma liga válida.');
       return;
@@ -83,7 +110,7 @@ const ProdutoForm = ({ produto, onFechar, onAtualizar }: Props) => {
       categoria,
       precoCentavos: Math.round(Number(preco) * 100),
       imagemUrl: imagemUrl.trim(),
-      variantes,
+      variantes: variantesSelecionadas,
       ativo: produto?.ativo ?? true,
     };
 
@@ -108,17 +135,22 @@ const ProdutoForm = ({ produto, onFechar, onAtualizar }: Props) => {
 
     try {
       await onAtualizar();
-    } finally {
+    } catch {
+      setMensagem(
+        'Produto salvo, mas não foi possível atualizar a listagem. Feche o formulário e recarregue a página.'
+      );
+
       setSalvando(false);
-      onFechar();
+      return;
     }
+
+    setSalvando(false);
+    onFechar();
   }
 
   return (
     <form className="produto-form" onSubmit={salvar}>
-      <h2>
-        {produto ? 'Editar produto' : 'Novo produto'}
-      </h2>
+      <h2>{produto ? 'Editar produto' : 'Novo produto'}</h2>
 
       {mensagem && (
         <p role="alert">{mensagem}</p>
@@ -126,9 +158,10 @@ const ProdutoForm = ({ produto, onFechar, onAtualizar }: Props) => {
 
       <label>
         Nome do produto
+
         <input
           value={nome}
-          onChange={e => setNome(e.target.value)}
+          onChange={event => setNome(event.target.value)}
           placeholder="Ex.: Regata Chicago Bulls"
           required
           pattern=".*\S.*"
@@ -139,10 +172,11 @@ const ProdutoForm = ({ produto, onFechar, onAtualizar }: Props) => {
       <div className="form-linha">
         <label>
           Liga
+
           <select
             value={liga}
-            onChange={e => {
-              setLiga(e.target.value);
+            onChange={event => {
+              setLiga(event.target.value);
               setTimeId('');
             }}
             required
@@ -158,9 +192,10 @@ const ProdutoForm = ({ produto, onFechar, onAtualizar }: Props) => {
 
         <label>
           Time
+
           <select
             value={timeId}
-            onChange={e => setTimeId(e.target.value)}
+            onChange={event => setTimeId(event.target.value)}
             disabled={!liga || salvando}
             required
           >
@@ -194,7 +229,7 @@ const ProdutoForm = ({ produto, onFechar, onAtualizar }: Props) => {
 
         <select
           value={categoria}
-          onChange={e => setCategoria(e.target.value)}
+          onChange={event => setCategoria(event.target.value)}
           required
           disabled={salvando}
         >
@@ -210,53 +245,74 @@ const ProdutoForm = ({ produto, onFechar, onAtualizar }: Props) => {
 
       <label>
         Preço (R$)
+
         <input
           type="number"
           min="0"
           step="0.01"
           value={preco}
-          onChange={e => setPreco(e.target.value)}
+          onChange={event => setPreco(event.target.value)}
           placeholder="349,90"
           required
           disabled={salvando}
         />
       </label>
 
-      <fieldset
-        className="estoque-fieldset"
-        disabled={salvando}
-      >
-        <legend>Estoque por tamanho</legend>
+      <div className="produto-tipo-estoque">
+  <label className="produto-tipo-tamanho">
+    Tipo de tamanho
 
-        <div className="tamanhos-grid">
-          {variantes.map(item => (
-            <label key={item.tamanho}>
-              {item.tamanho}
+    <select
+      value={tamanhoUnico ? 'unico' : 'roupa'}
+      onChange={event =>
+        setTamanhoUnico(event.target.value === 'unico')
+      }
+      disabled={salvando}
+    >
+      <option value="roupa">Tamanhos de roupa</option>
+      <option value="unico">Tamanho único</option>
+    </select>
+  </label>
 
-              <input
-                type="number"
-                min="0"
-                step="1"
-                value={item.estoque}
-                onChange={e =>
-                  alterarEstoque(
-                    item.tamanho,
-                    Number(e.target.value)
-                  )
-                }
-                required
-              />
-            </label>
-          ))}
-        </div>
-      </fieldset>
+  <fieldset
+    className="estoque-fieldset"
+    disabled={salvando}
+  >
+    <legend>
+      {tamanhoUnico ? 'Estoque' : 'Estoque por tamanho'}
+    </legend>
+
+    <div className="tamanhos-grid">
+      {variantesSelecionadas.map(item => (
+        <label key={item.tamanho}>
+          {item.tamanho}
+
+          <input
+            type="number"
+            min="0"
+            step="1"
+            value={item.estoque}
+            onChange={event =>
+              alterarEstoque(
+                item.tamanho,
+                Number(event.target.value)
+              )
+            }
+            required
+          />
+        </label>
+      ))}
+    </div>
+  </fieldset>
+</div>
 
       <label>
         URL da foto do produto
+
         <input
           type="url"
           value={imagemUrl}
-          onChange={e => setImagemUrl(e.target.value)}
+          onChange={event => setImagemUrl(event.target.value)}
           placeholder="https://site.com/produto.webp"
           required
           disabled={salvando}
@@ -265,10 +321,7 @@ const ProdutoForm = ({ produto, onFechar, onAtualizar }: Props) => {
 
       {imagemUrl && (
         <div className="foto-preview">
-          <img
-            src={imagemUrl}
-            alt="Prévia do produto"
-          />
+          <img src={imagemUrl} alt="Prévia do produto" />
         </div>
       )}
 

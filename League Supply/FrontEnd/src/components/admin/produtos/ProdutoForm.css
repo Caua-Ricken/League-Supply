@@ -1,10 +1,15 @@
-/* Formulário com largura completa */
+/* Formulário */
+
+.produto-form,
+.produto-form * {
+  box-sizing: border-box;
+}
 
 .produto-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px 24px;
   align-items: start;
+  gap: 16px 24px;
 
   width: 100%;
   max-width: none;
@@ -31,7 +36,7 @@
   line-height: 1.1;
 }
 
-/* Mensagem de erro, quando existir */
+/* Mensagem */
 
 .produto-form > [role="alert"] {
   grid-column: 1 / -1;
@@ -71,6 +76,7 @@
 
   background: #fff;
   color: #14283f;
+  font: inherit;
   font-size: 14px;
 }
 
@@ -87,6 +93,11 @@
   background: #f1f3f6;
   color: #8997a8;
   cursor: not-allowed;
+}
+
+.produto-form :is(input, select, button):focus-visible {
+  outline: 3px solid #adc3e0;
+  outline-offset: 2px;
 }
 
 /* Nome: esquerda */
@@ -122,11 +133,30 @@
   grid-row: 4;
 }
 
-/* Estoque: esquerda */
+/* Tipo e estoque: esquerda */
 
-.produto-form > .estoque-fieldset {
+.produto-form > .produto-tipo-estoque {
   grid-column: 1;
   grid-row: 5;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* Primeiro: selecionar o tipo */
+
+.produto-form .produto-tipo-estoque > label {
+  order: 0;
+  grid-area: auto;
+}
+
+/* Depois: informar as quantidades */
+
+.produto-form .produto-tipo-estoque > .estoque-fieldset {
+  order: 1;
+  grid-area: auto;
 
   min-width: 0;
   margin: 0;
@@ -144,14 +174,11 @@
 
 .produto-form .tamanhos-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
   gap: 8px;
 }
 
-.produto-form .tamanhos-grid label {
-  text-align: center;
-}
-
+.produto-form .tamanhos-grid label,
 .produto-form .tamanhos-grid input {
   text-align: center;
 }
@@ -161,13 +188,12 @@
 .produto-form > .time-preview {
   grid-column: 2;
   grid-row: 5;
-  align-self: stretch;
 
   display: flex;
   align-items: center;
   gap: 12px;
   min-width: 0;
-  padding: 10px 12px;
+  padding: 14px 12px;
 
   border: 1px solid #e4eaf1;
   border-radius: 7px;
@@ -184,7 +210,9 @@
   object-fit: contain;
 }
 
-/* URL da imagem: esquerda */
+/* URL da imagem: esquerda
+   É o quarto label direto do formulário.
+   O tipo de tamanho agora fica dentro de uma div. */
 
 .produto-form > label:nth-of-type(4) {
   grid-column: 1;
@@ -201,7 +229,7 @@
   align-items: center;
   justify-content: center;
   min-width: 0;
-  padding: 8px;
+  padding: 12px;
 
   border: 1px dashed #cbd5e1;
   border-radius: 7px;
@@ -211,11 +239,11 @@
 .produto-form .foto-preview img {
   display: block;
   width: 100%;
-  height: 76px;
+  height: clamp(120px, 20vh, 200px);
   object-fit: contain;
 }
 
-/* Botões no rodapé do formulário */
+/* Botões */
 
 .produto-form > .form-acoes {
   grid-column: 1 / -1;
@@ -226,7 +254,7 @@
   gap: 12px;
 
   margin: 0;
-  padding-top: 12px;
+  padding-top: 16px;
   border-top: 1px solid #edf0f4;
 }
 
@@ -240,8 +268,10 @@
   background: #fff;
   color: #354b66;
 
+  font: inherit;
   font-size: 14px;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .produto-form .form-acoes button:hover:not(:disabled) {
@@ -259,9 +289,14 @@
   background: #b90629;
 }
 
-/* Mais compacto em monitores de menor altura */
+.produto-form .form-acoes button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-@media (min-width: 1100px) and (max-height: 800px) {
+/* Monitores com menor altura */
+
+@media (min-width: 901px) and (max-height: 800px) {
   .produto-form {
     gap: 10px 20px;
     padding: 16px 20px;
@@ -277,16 +312,20 @@
     min-height: 36px;
   }
 
+  .produto-form > .produto-tipo-estoque {
+    gap: 10px;
+  }
+
   .produto-form .foto-preview img {
-    height: 56px;
+    height: 100px;
   }
 
   .produto-form > .form-acoes {
-    padding-top: 8px;
+    padding-top: 10px;
   }
 }
 
-/* Em telas estreitas, os campos voltam para uma coluna */
+/* Uma coluna em telas menores */
 
 @media (max-width: 900px) {
   .produto-form {
@@ -299,18 +338,12 @@
   .produto-form > [role="alert"],
   .produto-form > label,
   .produto-form > .form-linha,
-  .produto-form > .estoque-fieldset,
+  .produto-form > .produto-tipo-estoque,
   .produto-form > .time-preview,
   .produto-form > .foto-preview,
   .produto-form > .form-acoes {
     grid-column: auto;
     grid-row: auto;
-  }
-}
-
-@media (max-width: 600px) {
-  .produto-form .tamanhos-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -326,41 +359,5 @@
   .produto-form .form-acoes button {
     width: 100%;
     min-width: 0;
-  }
-}
-
-/* Prévia maior e melhor aproveitamento do espaço */
-
-@media (min-width: 901px) {
-  .produto-form {
-    gap: 16px 24px;
-  }
-
-  .produto-form > .foto-preview {
-    padding: 12px;
-  }
-
-  .produto-form .foto-preview img {
-    height: clamp(120px, 20vh, 200px);
-  }
-
-  .produto-form > .form-acoes {
-    padding-top: 16px;
-  }
-}
-
-/* Em telas de menor altura, mantém a prévia compacta */
-
-@media (min-width: 901px) and (max-height: 750px) {
-  .produto-form {
-    gap: 10px 20px;
-  }
-
-  .produto-form .foto-preview img {
-    height: 100px;
-  }
-
-  .produto-form > .form-acoes {
-    padding-top: 10px;
   }
 }

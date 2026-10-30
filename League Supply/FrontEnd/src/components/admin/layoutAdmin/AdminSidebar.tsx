@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 const itens = [
   { to: '.', label: 'Visão geral', icon: '◫', end: true },
   { to: 'produtos', label: 'Produtos', icon: '◇' },
-  { to: '/admin/pedidos', label: 'Pedidos', icon: '▤' },
+  { to: 'pedidos', label: 'Pedidos', icon: '▤' },
   { to: 'formas-pagamento', label: 'Pagamentos', icon: (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" focusable="false">
       <rect x="2.5" y="5" width="19" height="14" rx="2" />

@@ -202,6 +202,7 @@ export default {
     }
   },
 
+  //busca de pedidos tela usuarios
   async buscarMeus(req: RequestAutenticado, res: Response) {
     const usuario = req.usuario;
 
@@ -225,6 +226,32 @@ export default {
     } catch {
       return res.status(500).json({
         message: 'Não foi possível buscar seus pedidos.',
+      });
+    }
+  },
+
+//busca de pedidos admin
+  async buscarTodos(_req: Request, res: Response) {
+    try {
+      const pedidos = await Pedidos.find()
+        .populate<{
+          usuarioId: {
+            nome: string;
+            email: string;
+          } | null;
+        }>('usuarioId', 'nome email')
+        .sort({ createdAt: -1 })
+        .lean();
+  
+      const resultado = pedidos.map(pedido => ({
+        ...pedido,
+        cliente: pedido.usuarioId,
+      }));
+  
+      return res.status(200).json(resultado);
+    } catch {
+      return res.status(500).json({
+        message: 'Não foi possível carregar os pedidos.',
       });
     }
   },
