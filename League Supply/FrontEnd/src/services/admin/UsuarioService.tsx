@@ -3,7 +3,7 @@ import type {
     UsuarioInput,
   } from '../../types/Usuario';
   
-  const API_URL = 'http://localhost:3000/api/usuarios';
+  const API_URL = 'https://league-supply.onrender.com/api/usuarios';
   
   export const buscarUsuarios = async (): Promise<Usuario[]> => {
     const token = localStorage.getItem('token');

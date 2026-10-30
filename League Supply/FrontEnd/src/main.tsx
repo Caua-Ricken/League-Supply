@@ -5,7 +5,6 @@ import './index.css'
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
 } from "react-router-dom";
 
 import Login from './pages/login/Login.tsx';
@@ -24,11 +23,13 @@ import Pagamento from './pages/user/pagamento/Pagamento.tsx'
 import Finalizado from './pages/user/finalizado/Finalizado.tsx';
 import MeusPedidos from './pages/user/pedido/MeusPedidos.tsx';
 import Pedidos from './pages/admin/pedido/Pedidos.tsx';
+import Error from './pages/error/Error.tsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Login />,
+    errorElement: <Error />
   },
   {
     path: '/cadastro',

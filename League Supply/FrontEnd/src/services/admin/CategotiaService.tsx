@@ -3,7 +3,7 @@ import type {
     CategoriaInput,
   } from '../../types/Categotia';
   
-  const API_URL = 'http://localhost:3000/api/categorias';
+  const API_URL = 'https://league-supply.onrender.com/api/categorias';
   
   // GET — listar categorias
   export const buscarCategorias = async (): Promise<Categoria[]> => {

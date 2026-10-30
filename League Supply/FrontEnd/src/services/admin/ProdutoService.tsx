@@ -1,6 +1,6 @@
 import type { Produto, ProdutoInput } from '../../types/Produto';
 
-const API_URL = 'http://localhost:3000/api/produtos';
+const API_URL = 'https://league-supply.onrender.com/api/produtos';
 
 export const buscarProdutos = async (): Promise<Produto[]> => {
     const token = localStorage.getItem('token');

@@ -2,7 +2,7 @@ import type { PedidoAdmin } from '../../types/PedidoAdmin';
 
 export const buscarTodosPedidos = async (): Promise<PedidoAdmin[]> => {
   const res = await fetch(
-    'http://localhost:3000/api/pedidos/pedidos',
+    'https://league-supply.onrender.com/api/pedidos/pedidos',
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,

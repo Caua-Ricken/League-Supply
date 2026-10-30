@@ -1,5 +1,5 @@
 export const cadastrarUsuario = async (nome: string, email: string, senha: string) => {
-  const res = await fetch('http://localhost:3000/api/auth/cadastrar', {
+  const res = await fetch('https://league-supply.onrender.com/api/auth/cadastrar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ nome: nome.trim(), email: email.trim().toLowerCase(), senha }),

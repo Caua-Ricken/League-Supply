@@ -3,7 +3,7 @@ import type {
     FormaPagamentoInput,
   } from '../../types/FormaPagamento';
   
-  const API_URL = 'http://localhost:3000/api/formas-pagamento';
+  const API_URL = 'https://league-supply.onrender.com/api/formas-pagamento';
   
   export const buscarFormasPagamento = async (): Promise<
     FormaPagamento[]

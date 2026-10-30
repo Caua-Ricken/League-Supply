@@ -1,0 +1,137 @@
+.nao-encontrado-page,
+.nao-encontrado-page * {
+  box-sizing: border-box;
+}
+
+.nao-encontrado-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 32px 24px;
+
+  border-top: 4px solid #d80832;
+  background: #f3f5f8;
+  color: #142338;
+  text-align: center;
+}
+
+.nao-encontrado-brand {
+  color: #142338;
+  font-family: 'Barlow Condensed', Impact, sans-serif;
+  font-size: 29px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.nao-encontrado-brand span {
+  color: #d80832;
+}
+
+.nao-encontrado-conteudo {
+  width: 100%;
+  max-width: 620px;
+  margin: auto 0;
+  padding: 40px 0;
+}
+
+.nao-encontrado-legenda {
+  display: block;
+  color: #68788d;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.nao-encontrado-numero {
+  display: block;
+  margin: 8px 0;
+  color: #d80832;
+  font-family: 'Barlow Condensed', Impact, sans-serif;
+  font-size: clamp(120px, 22vw, 200px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.nao-encontrado-conteudo h1 {
+  margin: 20px 0 12px;
+  font-family: 'Barlow Condensed', Impact, sans-serif;
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 800;
+}
+
+.nao-encontrado-conteudo p {
+  max-width: 450px;
+  margin: 0 auto;
+  color: #68788d;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.nao-encontrado-acoes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.nao-encontrado-acoes button,
+.nao-encontrado-acoes a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  min-width: 165px;
+  padding: 13px 20px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #fff;
+  color: #142338;
+
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nao-encontrado-acoes button:hover {
+  background: #eaf0f6;
+}
+
+.nao-encontrado-acoes a {
+  border-color: #d80832;
+  background: #d80832;
+  color: #fff;
+}
+
+.nao-encontrado-acoes a:hover {
+  border-color: #b90629;
+  background: #b90629;
+}
+
+.nao-encontrado-page :is(a, button):focus-visible {
+  outline: 3px solid #adc3e0;
+  outline-offset: 3px;
+}
+
+.nao-encontrado-footer {
+  color: #68788d;
+  font-size: 12px;
+}
+
+@media (max-width: 450px) {
+  .nao-encontrado-acoes {
+    flex-direction: column;
+  }
+
+  .nao-encontrado-acoes a,
+  .nao-encontrado-acoes button {
+    width: 100%;
+  }
+}

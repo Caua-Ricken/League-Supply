@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { FazerLogin } from '../../services/auth/Login'
 import './Login.css'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
     const [email, setEmail] = useState('')

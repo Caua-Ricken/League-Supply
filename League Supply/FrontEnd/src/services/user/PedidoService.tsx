@@ -12,7 +12,7 @@ interface PedidoInput {
 
 export const cadastrarPedido = async (dados: PedidoInput): Promise<Pedido> => {
   const res = await fetch(
-    'http://localhost:3000/api/pedidos',
+    'https://league-supply.onrender.com/api/pedidos',
     {
       method: 'POST',
       headers: {
@@ -38,7 +38,7 @@ export const cadastrarPedido = async (dados: PedidoInput): Promise<Pedido> => {
 
 export const buscarMeusPedidos = async (): Promise<Pedido[]> => {
   const res = await fetch(
-    'http://localhost:3000/api/pedidos/meus',
+    'https://league-supply.onrender.com/api/pedidos/meus',
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
