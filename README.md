@@ -1,4 +1,8 @@
+
+
 # League Supply 🏀🏈⚾🏒
+
+
 
 Aplicação Full Stack de uma loja de artigos esportivos das ligas
 NBA, NFL, MLB e NHL, com área de compras e painel administrativo.
