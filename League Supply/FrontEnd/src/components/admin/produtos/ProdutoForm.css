@@ -361,3 +361,53 @@
     min-width: 0;
   }
 }
+
+/* Cadastro mais compacto no desktop */
+
+@media (min-width: 901px) {
+  .produto-form {
+    gap: 10px 20px;
+    padding: 16px 20px;
+  }
+
+  .produto-form > h2 {
+    font-size: 25px;
+  }
+
+  .produto-form label {
+    gap: 4px;
+  }
+
+  .produto-form input,
+  .produto-form select {
+    height: 36px;
+    min-height: 36px;
+    padding: 7px 10px;
+  }
+
+  .produto-form .produto-tipo-estoque {
+    gap: 10px;
+  }
+
+  .produto-form > .time-preview {
+    padding: 8px 12px;
+    align-self: start;
+  }
+
+  .produto-form > .foto-preview {
+    padding: 8px;
+  }
+
+  .produto-form .foto-preview img {
+    height: clamp(80px, 13vh, 120px);
+  }
+
+  .produto-form > .form-acoes {
+    margin: 0;
+    padding-top: 10px;
+  }
+
+  .produto-form .form-acoes button {
+    padding: 8px 14px;
+  }
+}
