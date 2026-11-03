@@ -1,18 +1,24 @@
-import { Outlet } from 'react-router-dom'
-import AdminHeader from '../components/admin/layoutAdmin/AdminHeader'
-import AdminSidebar from '../components/admin/layoutAdmin/AdminSidebar'
-import AdminFooter from '../components/admin/layoutAdmin/AdminFooter'
-import '../components/admin/layoutAdmin/admin.css'
+import { Outlet } from 'react-router-dom';
+
+import AdminHeader from '../components/admin/layoutAdmin/AdminHeader';
+import AdminSidebar from '../components/admin/layoutAdmin/AdminSidebar';
+
+import './MainLayoutAdmin.css';
 
 const MainLayoutAdmin = () => {
   return (
     <div className="admin-layout">
       <AdminHeader />
-      <AdminSidebar />
-      <main className="admin-main"><Outlet /></main>
-      <AdminFooter />
-    </div>
-  )
-}
 
-export default MainLayoutAdmin
+      <div className="admin-layout-corpo">
+        <AdminSidebar />
+
+        <main className="admin-layout-conteudo">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default MainLayoutAdmin;

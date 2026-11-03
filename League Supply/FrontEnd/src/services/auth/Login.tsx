@@ -1,4 +1,4 @@
-export const FazerLogin = async (login: string, senha: string) => {
+export const FazerLogin = async (login: string, senha: string, turnstileToken: string) => {
     const res = await fetch("https://league-supply.onrender.com/api/auth/login", {
       method: "POST",
       headers: {
@@ -7,6 +7,7 @@ export const FazerLogin = async (login: string, senha: string) => {
       body: JSON.stringify({
         login,
         senha,
+        turnstileToken,
       }),
     });
   

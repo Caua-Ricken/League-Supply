@@ -1,7 +1,10 @@
-import { useState, type FormEvent } from 'react'
+import { useState, type FormEvent, useRef } from 'react'
 import { FazerLogin } from '../../services/auth/Login'
 import './Login.css'
 import { Link, useNavigate } from 'react-router-dom'
+
+import { Turnstile } from '@marsidev/react-turnstile';
+import type { TurnstileInstance } from '@marsidev/react-turnstile';
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -10,13 +13,21 @@ const Login = () => {
     const [message, setMessage] = useState('')
     const navigate = useNavigate();
 
+    const [turnstileToken, setTurnstileToken] = useState('');
+    const turnstileRef = useRef<TurnstileInstance>(null);
+
     const entrar = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setLoading(true)
         setMessage('')
 
         try {
-            const data = await FazerLogin(email.trim(), senha)
+            if (!turnstileToken) {
+                setMessage('Conclua a verificação de segurança.');
+                return;
+            };
+
+            const data = await FazerLogin(email.trim(), senha, turnstileToken)
             setMessage(data.message || 'Login realizado com sucesso!')
             setSenha('')
             setEmail('')
@@ -26,20 +37,20 @@ const Login = () => {
 
             setTimeout(() => {
                 if (data.usuario.role === "admin") {
-                navigate("/administrador");
-                return;
-              };
-        
-              if (data.usuario.role === "usuario") {
-                navigate("/loja");
-                return;
-              };
-        
-              localStorage.removeItem("token");
-              localStorage.removeItem("usuario");
-        
-              setMessage("Perfil de usuário inválido");
-              }, 1500);
+                    navigate("/administrador");
+                    return;
+                };
+
+                if (data.usuario.role === "usuario") {
+                    navigate("/loja");
+                    return;
+                };
+
+                localStorage.removeItem("token");
+                localStorage.removeItem("usuario");
+
+                setMessage("Perfil de usuário inválido");
+            }, 1500);
 
         } catch (error) {
             setMessage(
@@ -49,6 +60,9 @@ const Login = () => {
             )
         } finally {
             setLoading(false)
+
+            setTurnstileToken('');
+            turnstileRef.current?.reset();
         }
     }
 
@@ -137,6 +151,17 @@ const Login = () => {
                                 {message}
                             </p>
                         )}
+
+                        <div className="login-verificacao">
+                            <Turnstile
+                                ref={turnstileRef}
+                                siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
+                                options={{ theme: 'light' }}
+                                onSuccess={token => setTurnstileToken(token)}
+                                onExpire={() => setTurnstileToken('')}
+                                onError={() => setTurnstileToken('')}
+                            />
+                        </div>
 
                         <button
                             type="submit"
