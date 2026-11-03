@@ -1,33 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800;900&family=Barlow:wght@400;500;600;700;800&display=swap');
 
+/* Layout principal */
+
+.admin-layout,
+.admin-layout * {
+  box-sizing: border-box;
+}
+
 .admin-layout {
-  min-height: 100svh;
-  display: grid;
-  grid-template-columns: 248px minmax(0, 1fr);
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100dvh;
+  min-width: 0;
+  overflow: hidden;
+
   background: #f3f5f8;
   color: #142338;
   font-family: 'Barlow', Arial, sans-serif;
 }
 
-.admin-layout * {
-  box-sizing: border-box;
-}
+/* Header */
 
 .admin-header {
-  grid-column: 1 / -1;
+  position: relative;
+  z-index: 100;
+  flex-shrink: 0;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+
   padding: 25px 36px;
   background: #142338;
-  color: white;
+  color: #fff;
   border-bottom: 3px solid #c61f3a;
 }
 
 .admin-brand {
-  color: white;
+  color: #fff;
   text-decoration: none;
   font: 900 28px/1 'Barlow Condensed', Impact, sans-serif;
   letter-spacing: -1px;
@@ -40,10 +53,13 @@
 .admin-brand small {
   display: block;
   margin-top: 9px;
+
   font: 700 9px/1.5 'Barlow', Arial, sans-serif;
   letter-spacing: 2.5px;
   color: #b8c9e1;
 }
+
+/* Conta do administrador */
 
 .admin-account {
   display: flex;
@@ -58,34 +74,90 @@
 
 .admin-account small {
   display: block;
+  margin-top: 5px;
+
   color: #b8c9e1;
   font-size: 11px;
-  margin-top: 5px;
   text-align: right;
 }
 
 .admin-avatar {
   display: grid;
   place-items: center;
+
   width: 40px;
   height: 40px;
+
   border: 1px solid #536176;
   border-radius: 50%;
   background: #26374e;
+  color: #fff;
   font-weight: 700;
 }
 
+.admin-account-menu {
+  position: relative;
+}
+
+.admin-account-menu .admin-avatar {
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.admin-logout {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 100;
+
+  width: 150px;
+  padding: 12px;
+
+  border: 1px solid #dce3ec;
+  border-radius: 6px;
+  background: #fff;
+  color: #c61f3a;
+
+  font: inherit;
+  cursor: pointer;
+}
+
+.admin-logout:hover {
+  background: #fff0f3;
+}
+
+/* Área abaixo do header */
+
+.admin-layout-corpo {
+  display: grid;
+  grid-template-columns: 248px minmax(0, 1fr);
+
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Sidebar */
+
 .admin-sidebar {
-  padding: 34px 18px 24px;
-  background: white;
-  border-right: 1px solid #e0e5ec;
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  min-width: 0;
+  min-height: 0;
+  padding: 34px 18px 24px;
+
+  overflow-y: auto;
+  background: #fff;
+  border-right: 1px solid #e0e5ec;
 }
 
 .admin-nav-label {
   margin: 0 14px 5px;
+
   color: #727e8d;
   font-size: 10px;
   font-weight: 800;
@@ -101,19 +173,22 @@
   display: flex;
   align-items: center;
   gap: 13px;
+
   min-height: 47px;
   padding: 12px 16px;
+
+  border-left: 3px solid transparent;
   border-radius: 6px;
+
   color: #536176;
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
-  border-left: 3px solid transparent;
 }
 
-.admin-nav-item>span {
-  font-size: 21px;
+.admin-nav-item > span {
   width: 22px;
+  font-size: 21px;
   text-align: center;
 }
 
@@ -128,18 +203,21 @@
   color: #ad1932;
 }
 
-.admin-layout a:focus-visible {
+.admin-layout :is(a, button):focus-visible {
   outline: 3px solid #437db7;
   outline-offset: 3px;
 }
+
+/* Texto inferior da sidebar */
 
 .admin-sidebar-note {
   margin-top: auto;
   padding: 28px 14px 8px;
 }
 
-.admin-sidebar-note>span {
+.admin-sidebar-note > span {
   display: block;
+
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 2px;
@@ -149,6 +227,7 @@
 .admin-sidebar-note strong {
   display: block;
   margin: 12px 0 20px;
+
   font: 800 25px/1.1 'Barlow Condensed', Impact, sans-serif;
   text-transform: uppercase;
 }
@@ -159,24 +238,33 @@
   color: #727e8d;
 }
 
-.admin-main {
+/* Conteúdo do Outlet: área que rola */
+
+.admin-layout-conteudo {
   min-width: 0;
+  min-height: 0;
   padding: 24px;
+
+  overflow-y: auto;
 }
 
+/* Footer, caso seja renderizado no layout */
+
 .admin-footer {
-  grid-column: 1 / -1;
-  padding: 20px 36px;
   display: flex;
   justify-content: space-between;
+  flex-shrink: 0;
   gap: 16px;
+
+  padding: 20px 36px;
   border-top: 1px solid #e0e5ec;
-  background: white;
+  background: #fff;
+
   color: #727e8d;
   font-size: 11px;
 }
 
-.admin-footer>span:last-child {
+.admin-footer > span:last-child {
   font-size: 9px;
   letter-spacing: 1.5px;
   font-weight: 700;
@@ -187,12 +275,9 @@
   color: #c61f3a;
 }
 
-@media (max-width: 760px) {
-  .admin-layout {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto 1fr auto;
-  }
+/* Celular e telas menores */
 
+@media (max-width: 760px) {
   .admin-header {
     padding: 22px 20px;
     gap: 12px;
@@ -202,12 +287,19 @@
     font-size: 23px;
   }
 
-  .admin-account>div {
+  .admin-account > div:not(.admin-account-menu) {
     display: none;
   }
 
+  .admin-layout-corpo {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
   .admin-sidebar {
-    padding: 16px;
+    max-height: 25dvh;
+    padding: 12px 16px;
+
     border-right: 0;
     border-bottom: 1px solid #e0e5ec;
   }
@@ -224,85 +316,19 @@
   }
 
   .admin-nav-item {
-    padding: 9px 12px;
     min-height: 42px;
+    padding: 9px 12px;
     font-size: 12px;
   }
 
+  .admin-layout-conteudo {
+    padding: 18px;
+  }
+
   .admin-footer {
-    padding: 20px;
     flex-direction: column;
+    gap: 6px;
+    padding: 12px 20px;
     line-height: 1.5;
-  }
-}
-
-.admin-account-menu {
-  position: relative;
-}
-
-.admin-account-menu .admin-avatar {
-  padding: 0;
-  color: white;
-  font: inherit;
-  cursor: pointer;
-}
-
-.admin-logout {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  z-index: 100;
-
-  width: 150px;
-  padding: 12px;
-
-  border: 1px solid #dce3ec;
-  border-radius: 6px;
-  background: white;
-  color: #c61f3a;
-
-  font: inherit;
-  cursor: pointer;
-}
-
-.admin-logout:hover {
-  background: #fff0f3;
-}
-
-/* Limita o layout à altura da janela */
-
-.admin-layout {
-  height: 100dvh;
-  min-height: 0;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  overflow: hidden;
-}
-
-/* Mantém a sidebar dentro da altura disponível */
-
-.admin-sidebar {
-  min-height: 0;
-  min-width: 0;
-  overflow-y: auto;
-}
-
-/* Rolagem apenas na área onde está o Outlet */
-
-.admin-main {
-  min-height: 0;
-  min-width: 0;
-  overflow-y: auto;
-}
-
-/* Preserva o layout de uma coluna no celular */
-
-@media (max-width: 760px) {
-  .admin-layout {
-    grid-template-rows: auto auto minmax(0, 1fr) auto;
-  }
-
-  .admin-sidebar {
-    max-height: 25dvh;
-    overflow-y: auto;
   }
 }
