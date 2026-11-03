@@ -268,3 +268,41 @@
 .admin-logout:hover {
   background: #fff0f3;
 }
+
+/* Limita o layout à altura da janela */
+
+.admin-layout {
+  height: 100dvh;
+  min-height: 0;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+}
+
+/* Mantém a sidebar dentro da altura disponível */
+
+.admin-sidebar {
+  min-height: 0;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+/* Rolagem apenas na área onde está o Outlet */
+
+.admin-main {
+  min-height: 0;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+/* Preserva o layout de uma coluna no celular */
+
+@media (max-width: 760px) {
+  .admin-layout {
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+  }
+
+  .admin-sidebar {
+    max-height: 25dvh;
+    overflow-y: auto;
+  }
+}
