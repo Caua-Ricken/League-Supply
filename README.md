@@ -11,7 +11,7 @@ de estoque e registro de pedidos.
 
 ## 🎬 Demonstração
 
-<!-- Adicione aqui o vídeo demonstrativo do projeto. -->
+[▶ Assistir à demonstração](https://league-supply-nu.vercel.app/Video Project.mp4)
 
 ## 📌 Sobre o projeto
 
