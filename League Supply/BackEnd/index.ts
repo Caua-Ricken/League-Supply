@@ -2,6 +2,7 @@ import express from 'express';
 const app = express();
 import cors from 'cors';
 const porta = Number(process.env.PORT) || 3000;
+import logRequisicoes from './middleware/logRequisicoes.js';
 
 import conn from './db/conn.js'
 
@@ -13,6 +14,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(logRequisicoes);
 
 import apiRoutes from './routes/index.js'
 app.use('/api', apiRoutes);
